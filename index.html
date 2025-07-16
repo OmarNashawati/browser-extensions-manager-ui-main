@@ -29,9 +29,9 @@
         <h1 class="header-title">Extensions List</h1>
         <div class="filter">
           <ul class="filter-items">
-            <li class="js-filter-item filter-item active" onclick="showAllExtensions(this)">All</li>
-            <li class="js-filter-item filter-item" onclick="showActiveExtensions(this)">Active</li>
-            <li class="js-filter-item filter-item" onclick="showInactiveExtensions(this)">Inactive</li>
+            <li class="js-filter-item filter-item active">All</li>
+            <li class="js-filter-item filter-item">Active</li>
+            <li class="js-filter-item filter-item">Inactive</li>
           </ul>
         </div>
       </div>
@@ -51,108 +51,37 @@
     Coded by <a href="#">Your Name Here</a>.
   </div>
 
-  <script>
-    const extensions = [
-      {
-        name: "DevLens",
-        description: "Quickly inspect page layouts and visualize element boundaries.",
-        isActive: true,
-        icon: "./assets/images/logo-devlens.svg"
-      },
-      {
-        name: "StyleSpy",
-        description: "  Instantly analyze and copy CSS from any webpage element.",
-        isActive: false,
-        icon: "./assets/images/logo-style-spy.svg"
-      },
-      {
-        name: "SpeedBoost",
-        description: "Optimizes browser resource usage to accelerate page loading.",
-        isActive: false,
-        icon: "./assets/images/logo-speed-boost.svg"
-      },
-      {
-        name: "JSONWizard",
-        description: "Formats, validates, and prettifies JSON responses in-browser.",
-        isActive: false,
-        icon: "./assets/images/logo-json-wizard.svg"
-      },
-      {
-        name: "TabMaster Pro",
-        description: "Organizes browser tabs into groups and sessions.",
-        isActive: false,
-        icon: "./assets/images/logo-tab-master-pro.svg"
-      },
-      {
-        name: "ViewportBuddy",
-        description: "Simulates various screen resolutions directly within the browser.",
-        isActive: false,
-        icon: "./assets/images/logo-viewport-buddy.svg"
-      },
-      {
-        name: "Markup Notes",
-        description: "Enables annotation and notes directly onto webpages for collaborative debugging.",
-        isActive: false,
-        icon: "./assets/images/logo-markup-notes.svg"
-      },
-      {
-        name: "GridGuides",
-        description: "Overlay customizable grids and alignment guides on any webpage.",
-        isActive: false,
-        icon: "./assets/images/logo-grid-guides.svg"
-      },
-      {
-        name: "Palette Picker",
-        description: "Instantly extracts color palettes from any webpage.",
-        isActive: false,
-        icon: "./assets/images/logo-palette-picker.svg"
-      },
-      {
-        name: "LinkChecker",
-        description: "Scans and highlights broken links on any page.",
-        isActive: true,
-        icon: "./assets/images/logo-link-checker.svg"
-      },
-      {
-        name: "DOM Snapshot",
-        description: "Capture and export DOM structures quickly.",
-        isActive: false,
-        icon: "./assets/images/logo-dom-snapshot.svg"
-      },
-      {
-        name: "ConsolePlus",
-        description: "Enhanced developer console with advanced filtering and logging.",
-        isActive: false,
-        icon: "./assets/images/logo-console-plus.svg"
-      },
-    ]
 
-    showAllExtensions(document.querySelector('.js-filter-item:first-child'));
+  <script type="module">
+    import extensions from './data.json' with {type:"json"}
 
-    function showAllExtensions (e) {
-      
-      renderExtensions(extensions)
-      clearFilter()
-      e.classList.add('active')
-    }
-    function showActiveExtensions (e) {
-      renderExtensions(extensions.filter(e => e.isActive))
-      clearFilter()
-      e.classList.add('active')
-      
-    }
-    function showInactiveExtensions (e) {
-      renderExtensions(extensions.filter(e => !e.isActive))
-      clearFilter()
-      e.classList.add('active')
-      console.log(e)
-    }
-
-    function clearFilter (){
-      const filterButtons = document.querySelectorAll('.js-filter-item')
-        .forEach(but => {
-          but.classList.remove('active');
+    renderExtensions(extensions)
+    
+    const filterButtons = document.querySelectorAll('.js-filter-item')
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () =>{
+         filterExtensions(button)
         })
+      })
+      
+    function clearFilters (filterButtons){
+      filterButtons.forEach(but => {
+        but.classList.remove('active');
+      })
+    }
+
+    function filterExtensions(button) {
+      clearFilters(filterButtons);
+      button.classList.add('active');
+      console.log(button.innerText);
+      
+      if(button.innerText === 'All'){
+        renderExtensions(extensions)
+      }else if(button.innerText === 'Active'){
+        renderExtensions(extensions.filter(extension => extension.isActive))
+      }else{
+        renderExtensions(extensions.filter(extension => !extension.isActive))
+      }
     }
 
     function renderExtensions(list) {
@@ -163,7 +92,7 @@
         <div class="extension-card">
             <div class="card-body">
               <div class="extension-icon">
-                <img src="${item.icon}" alt="">
+                <img src="${item.logo}" alt="">
               </div>
               <div>
                 <h3 class="extension-title">${item.name}</h3>
@@ -182,20 +111,20 @@
       })
       extensionsContainer.innerHTML = html;
     }
-  </script>
 
-  <script>
+
+    // ######## DARK MODE
     const toggleBtn = document.querySelector('.js-dark-mode-toggle');
     const htmlElemet = document.documentElement;
-
+    
     const savedTheme = localStorage.getItem('theme');
     if(savedTheme) {
       htmlElemet.setAttribute('data-theme', savedTheme);
-
+    
     }else{
       htmlElemet.setAttribute('data-theme', 'dark');
     }
-
+    
     toggleBtn.addEventListener('click', () => {      
       const current = htmlElemet.getAttribute('data-theme');
       const newTheme = current === 'dark' ? 'light' : 'dark';
