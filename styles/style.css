@@ -1,0 +1,110 @@
+@import './base.css';
+
+.header-wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--surface);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.theme-switch{
+  background-color: var(--surface-muted);
+  width: 40px;
+  height: 40px;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.theme-icon {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background-position: center;
+  background-size: 15px;
+  background-repeat: no-repeat;
+  background-image: var(--theme-switch-icon) ;
+}
+
+
+/* ######################### MAIN ############################ */
+.main-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 2rem;
+  padding: 1rem 0;
+}
+
+@media(max-width: 576px) {
+  .main-header {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+
+.filter-item{
+  display: inline-block;
+  background-color: var(--surface);
+  padding: 10px 24px;
+  border-radius: 25px;
+  font-size: 0.8rem;
+  box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.filter-item.active {
+  background-color: var(--red-700);
+  color: var(--neutral-50);
+}
+
+.extensions-gird {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 5px;
+}
+
+@media(max-width: 576px) {
+ .extensions-gird {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+  }
+
+}
+
+.extension-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--surface-muted);
+  gap: 1.5rem;
+  background-color: var(--surface);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0px 2px 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+
+.card-body{
+  display: flex;
+  height: 100px;
+  gap: 10px;
+}
+
+.extension-actions{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.btn-remove{
+  background: transparent;
+  border: 1px solid var(--surface-muted);
+  padding: 8px 12px;
+  border-radius: 25px;
+  color: var(--text);
+}
+
+.attribution { font-size: 11px; text-align: center; padding: 1rem 0; }
+.attribution a { color: hsl(228, 45%, 44%); }
